@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "ethers": "^6.4.0",
-    "nodemon": "^2.0.22"
+    "nodemon": "^1.14.9",
+    "web3": "^1.2.11"
   }
 }
