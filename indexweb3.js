@@ -26,15 +26,15 @@ const Signatures = [
 ];
 
 const sigStrings = [
-  "swapETHForExactTokens(uint256,address[],address,uint256)",
-  "swapExactETHForTokens(uint256,address[],address,uint256)",
-  "swapExactTokensForETH(uint256,uint256,address[],address,uint256)",
-  "swapExactTokensForTokens(uint256,uint256,address[],address,uint256)",
-  "swapTokensForExactETH(uint256,uint256,address[],address,uint256)",
-  "swapTokensForExactTokens(uint256,uint256,address[],address,uint256)",
-  "swapExactETHForTokensSupportingFeeOnTransferTokens(uint256,address[],address,uint256)",
-  "swapExactTokensForETHSupportingFeeOnTransferTokens(uint256,uint256,address[],address,uint256)",
-  "swapExactTokensForTokensSupportingFeeOnTransferTokens(uint256,uint256,address[],address,uint256)",
+  "swapETHForExactTokens(uint256,address[],address,uint256)", // amountOut
+  "swapExactETHForTokens(uint256,address[],address,uint256)", // amountOutMin
+  "swapExactTokensForETH(uint256,uint256,address[],address,uint256)", // amountIn, amountOutMin
+  "swapExactTokensForTokens(uint256,uint256,address[],address,uint256)", // amountIn, amountOutMin
+  "swapTokensForExactETH(uint256,uint256,address[],address,uint256)", // amountOut, amountInMax
+  "swapTokensForExactTokens(uint256,uint256,address[],address,uint256)", // amountOut, amountInMax
+  "swapExactETHForTokensSupportingFeeOnTransferTokens(uint256,address[],address,uint256)", // amountOutMin
+  "swapExactTokensForETHSupportingFeeOnTransferTokens(uint256,uint256,address[],address,uint256)", // amountIn, amountOutMin
+  "swapExactTokensForTokensSupportingFeeOnTransferTokens(uint256,uint256,address[],address,uint256)", // amountIn, amountOutMin
 ];
 
 const subscription = web3.eth.subscribe(
@@ -44,7 +44,7 @@ const subscription = web3.eth.subscribe(
       let tx = await web3.eth.getTransaction(result);
       if (tx) {
         if (tx.to && tx.to.toUpperCase() == routerAddr.toUpperCase()) {
-          let funcSig = tx.input.substring(0, 10); // collects first 4 bytes of data
+          let funcSig = tx.input.substring(0, 10); // collects first 4 bytes from data bytes string
           let index = Signatures.indexOf(
             Signatures.find((item) => item == funcSig) // checks if its present in Signatures
           );
